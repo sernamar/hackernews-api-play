@@ -1,4 +1,4 @@
-from hackernews import get_comment_from_api
+from hackernews import get_item_from_api
 # next expressions needed to be able to import the GET_DATA module
 import os
 import sys
@@ -14,5 +14,5 @@ BODY = """{"by":"norvig","id":2921983,"kids":[2922097,2922429,2924562,2922709,29
 
 
 def test_response_text():
-    comment = get_comment_from_api(COMMENT_ID)
-    assert comment == BODY
+    item = get_item_from_api(COMMENT_ID)
+    assert item == BODY

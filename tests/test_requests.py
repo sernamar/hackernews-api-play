@@ -1,4 +1,4 @@
-from get_data import get_comment
+from hackernews import get_comment
 # next expressions needed to be able to import the GET_DATA module
 import os
 import sys

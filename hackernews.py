@@ -1,4 +1,5 @@
 import requests
+import json
 import psycopg2
 from psycopg2 import sql  # we need to import the whole SQL module this way
 
@@ -10,7 +11,7 @@ TABLE_NAME = "items"
 def get_item_from_api(id):
     url = BASE_URL + str(id) + ".json"
     response = requests.get(url)
-    return response.text
+    return json.loads(response.text)
 
 
 def get_item_from_db(id):

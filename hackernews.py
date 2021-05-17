@@ -40,7 +40,7 @@ def get_item_from_db(id):
         # Return the item
         return item
 
-    except (Exception, psycopg2.Error) as error:
+    except (Exception, psycopg2_error) as error:
         print("Error while fetching data from PostgreSQL", error)
 
     finally:

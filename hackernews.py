@@ -1,6 +1,6 @@
 import requests
-import os
 import psycopg2
+from psycopg2 import sql  # we need to import the whole SQL module this way
 
 
 BASE_URL = "https://hacker-news.firebaseio.com/v0/item/"
@@ -15,7 +15,7 @@ def get_item_from_api(id):
 
 def get_item_from_db(id):
     try:
-        # Get the database credentials from the DATABASE_URL environment variable
+        # Get the database credentials from the environment variable
         # DATABASE_URL = os.environ["DATABASE_URL"]
         DATABASE_URL = "postgresql://user:password@host/database"
 
@@ -26,7 +26,8 @@ def get_item_from_db(id):
         cursor = connection.cursor()
 
         # Write the query expression
-        query = f"SELECT * FROM {TABLE_NAME} WHERE item_id=%s"
+        query = sql.SQL(
+            "SELECT * FROM {table} WHERE item_id=%s").format(table=sql.Identifier(TABLE_NAME))
 
         # Query the database
         cursor.execute(query, [id])

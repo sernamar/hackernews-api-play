@@ -1,6 +1,6 @@
 # hackernews-api-play
 
-Play with the HackerNews API to get some stories and save them to a database
+Play with the HackerNews API to get some items (stories, comments, jobs, etc.) and save them to a database
 
 ## Run tests locally
 

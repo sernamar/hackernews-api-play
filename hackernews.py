@@ -1,6 +1,6 @@
 import requests
 import os
-from psycopg2 import connect, sql, Error as psycopg2_error
+import psycopg2
 
 
 BASE_URL = "https://hacker-news.firebaseio.com/v0/item/"
@@ -16,17 +16,18 @@ def get_item_from_api(id):
 def get_item_from_db(id):
     try:
         # Get the database credentials from the DATABASE_URL environment variable
-        DATABASE_URL = os.environ["DATABASE_URL"]
+        # DATABASE_URL = os.environ["DATABASE_URL"]
+        DATABASE_URL = "postgresql://user:password@host/database"
 
         # Connect to an existing database
-        connection = connect(DATABASE_URL)
+        connection = psycopg2.connect(DATABASE_URL)
 
         # Open a cursor to perform database operations
         cursor = connection.cursor()
 
-        # Write the query
-        query = sql.SQL(
-            "SELECT * FROM {table} WHERE item_id=%s").format(table=sql.Identifier(TABLE_NAME))
+        # Write the query expression
+        query = f"SELECT * FROM {TABLE_NAME} WHERE item_id=%s"
+
         # Query the database
         cursor.execute(query, [id])
 
@@ -40,7 +41,7 @@ def get_item_from_db(id):
         # Return the item
         return item
 
-    except (Exception, psycopg2_error) as error:
+    except (Exception, psycopg2.Error) as error:
         print("Error while fetching data from PostgreSQL", error)
 
     finally:

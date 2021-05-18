@@ -83,6 +83,9 @@ VALUES (%(by)s, %(id)s, %(kids)s, %(parent)s,
         # Make the changes to the database persistent
         connection.commit()
 
+        # Return how many rows are afected by the query
+        return cursor.rowcount
+
     except (Exception, psycopg2.Error) as error:
         print("Error while writing data to PostgreSQL:", error)
 

@@ -1,4 +1,4 @@
-from hackernews import get_item_from_api, get_item_from_db
+from hackernews import get_item_from_api, get_item_from_db, save_item_to_db
 import datetime
 import psycopg2
 from unittest import mock
@@ -44,3 +44,16 @@ def test_get_item_from_db(mock_connect):
 
     item = get_item_from_db(COMMENT_ID)
     assert item == ITEM_FROM_DB
+
+
+@mock.patch("psycopg2.connect")
+def test_save_item_to_db(mock_connect):
+    # mock the result of psycopg2.connect(DATABASE_URL)
+    mock_connection = mock_connect.return_value
+    # mock the result of connection.cursor()
+    mock_cursor = mock_connection.cursor.return_value
+    # mock the value of rowcount (which the function returns when successful)
+    mock_cursor.rowcount = 1
+
+    rowcount = save_item_to_db(COMMENT_ID)
+    assert rowcount == 1

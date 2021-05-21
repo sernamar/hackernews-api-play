@@ -2,12 +2,14 @@
 
 Play with the HackerNews API to get some items (stories, comments, jobs, etc.) and save them to a database
 
-## Run tests locally
+## How to run the program:
 
-1. Install dependencies:
+To run the program:
 
-    `pip install -r requirements.txt`
-   
-2. Run tests:
+    make run
 
-    `pytest`
+## How to run the tests:
+
+To run the tests:
+
+    make test
